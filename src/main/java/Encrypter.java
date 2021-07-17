@@ -11,15 +11,18 @@ import java.util.Arrays;
 import java.util.Base64;
 
 /**
- * This encrypter encrypts and decrypts values that are compatible with openssl. In particular, it uses SHA-256 to
- * generate a key with salt and AES-256-CBC symmetric encryption algorithm. In openssl, use the parameters: -aes-256-cbc
- * and -md sha256. e.g.
+ * This encrypter encrypts and decrypts values that are compatible with openssl. This code uses SHA-256 to produce a
+ * salted key and the AES-256-CBC algorithm to encrypt the data. In openssl, use the parameters: -aes-256-cbc and -md
+ * sha256. e.g.
  * <code>
  * echo -n "text" | openssl enc -aes-256-cbc -md sha256 -pass pass:password123 -a
  * </code>
  */
 public class Encrypter {
+  // Used for salt generation
   SecureRandom srand = new SecureRandom();
+
+  // The bytes of the supplied password
   byte[] password;
 
   /**
